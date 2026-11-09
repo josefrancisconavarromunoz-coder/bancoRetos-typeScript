@@ -162,3 +162,41 @@ const respuestaError: RespuestaServidor = {
 // Probamos la función
 procesarRespuesta(respuestaCorrecta);
 procesarRespuesta(respuestaError);
+
+
+// RETO 5: Clases Heredadas y super()
+
+// Creamos la clase base ServicioDatos
+class ServicioDatos {
+
+    // Propiedad pública endpoint
+    constructor(public endpoint: string) {}
+
+    // Método para conectar con el servidor
+    conectar(): void {
+        console.log("Conectando a " + this.endpoint);
+    }
+}
+
+// Creamos la clase hija ServicioUsuarios
+class ServicioUsuarios extends ServicioDatos {
+
+    // Propiedad propia de la clase hija
+    entidad: string = 'usuarios';
+
+    // Constructor de la clase hija
+    constructor(endpoint: string) {
+
+        // Llamamos al constructor de la clase padre
+        super(endpoint);
+    }
+}
+
+// Creamos una instancia de ServicioUsuarios
+const servicio = new ServicioUsuarios("https://api.ejemplo.com/usuarios");
+
+// Ejecutamos el método heredado
+servicio.conectar();
+
+// Mostramos la entidad
+console.log("Entidad:", servicio.entidad);
