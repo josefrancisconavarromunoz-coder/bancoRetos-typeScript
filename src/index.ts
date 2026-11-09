@@ -118,3 +118,47 @@ console.log("Precio final:", producto.obtenerPrecioFinal());
 // Intentamos modificar el precioBase desde fuera de la clase
 // @ts-expect-error: precioBase es una propiedad privada
 producto.precioBase = 1500;
+
+
+// RETO 4: Control de Errores con Tipado Restringido
+
+// Definimos la interfaz RespuestaServidor
+interface RespuestaServidor {
+    status: 'success' | 'error';
+    data?: string[];
+    mensajeError?: string;
+}
+
+// Creamos la función para procesar la respuesta
+function procesarRespuesta(res: RespuestaServidor): void {
+
+    // Comprobamos si la respuesta ha sido correcta
+    if (res.status === 'success' && res.data) {
+
+        // Recorremos los datos recibidos
+        res.data.forEach(dato => {
+            console.log("Dato recibido:", dato);
+        });
+
+    } else {
+
+        // Mostramos el mensaje de error
+        console.log("Error:", res.mensajeError);
+    }
+}
+
+// Creamos una respuesta correcta
+const respuestaCorrecta: RespuestaServidor = {
+    status: 'success',
+    data: ['Usuario 1', 'Usuario 2', 'Usuario 3']
+};
+
+// Creamos una respuesta con error
+const respuestaError: RespuestaServidor = {
+    status: 'error',
+    mensajeError: 'No se ha podido conectar con el servidor'
+};
+
+// Probamos la función
+procesarRespuesta(respuestaCorrecta);
+procesarRespuesta(respuestaError);

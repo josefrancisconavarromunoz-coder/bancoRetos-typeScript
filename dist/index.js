@@ -79,3 +79,30 @@ console.log("Precio final:", producto.obtenerPrecioFinal());
 // Intentamos modificar el precioBase desde fuera de la clase
 // @ts-expect-error: precioBase es una propiedad privada
 producto.precioBase = 1500;
+// Creamos la función para procesar la respuesta
+function procesarRespuesta(res) {
+    // Comprobamos si la respuesta ha sido correcta
+    if (res.status === 'success' && res.data) {
+        // Recorremos los datos recibidos
+        res.data.forEach(dato => {
+            console.log("Dato recibido:", dato);
+        });
+    }
+    else {
+        // Mostramos el mensaje de error
+        console.log("Error:", res.mensajeError);
+    }
+}
+// Creamos una respuesta correcta
+const respuestaCorrecta = {
+    status: 'success',
+    data: ['Usuario 1', 'Usuario 2', 'Usuario 3']
+};
+// Creamos una respuesta con error
+const respuestaError = {
+    status: 'error',
+    mensajeError: 'No se ha podido conectar con el servidor'
+};
+// Probamos la función
+procesarRespuesta(respuestaCorrecta);
+procesarRespuesta(respuestaError);
