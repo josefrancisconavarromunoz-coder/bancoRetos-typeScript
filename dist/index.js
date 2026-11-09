@@ -56,3 +56,26 @@ const tareasActualizadas = completarTarea(misTareas, 2);
 // Mostramos los resultados
 console.log("Array original:", misTareas);
 console.log("Array actualizado:", tareasActualizadas);
+// RETO 3: Clase Componente y Encapsulación
+// Creamos la clase ProductComponent
+class ProductComponent {
+    // Propiedad pública e inicializada desde el constructor
+    constructor(nombreProducto, precioBase) {
+        this.nombreProducto = nombreProducto;
+        this.precioBase = precioBase;
+        // Propiedades privadas
+        this.iva = 0.21;
+    }
+    // Método público para calcular el precio final
+    obtenerPrecioFinal() {
+        return this.precioBase + (this.precioBase * this.iva);
+    }
+}
+// Creamos una instancia de la clase
+const producto = new ProductComponent("Ordenador", 1000);
+// Mostramos el nombre y el precio final
+console.log("Producto:", producto.nombreProducto);
+console.log("Precio final:", producto.obtenerPrecioFinal());
+// Intentamos modificar el precioBase desde fuera de la clase
+// @ts-expect-error: precioBase es una propiedad privada
+producto.precioBase = 1500;
